@@ -7,4 +7,5 @@ export interface Store {
   GeoLocation: string;
   OpenTime: string;
   CloseTime: string;
+  StoreImage: any;
 }

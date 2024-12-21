@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { runPostSignalSetFn } from '@angular/core/primitives/signals';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +26,13 @@ export class AppComponent implements OnInit {
   StoreInfoFormGroup: FormGroup;
   form: any;
   isSubmitting: any;
-
-  constructor(private StrService: StoreService, private fb: FormBuilder) {
+  fileToUpload: File | null = null;
+  imageFileName: string = '';
+  constructor(
+    private StrService: StoreService,
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {
     this.StoreInfoFormGroup = this.fb.group({
       Id: [''],
       StoreName: new FormControl('', [Validators.required]),
@@ -37,6 +42,7 @@ export class AppComponent implements OnInit {
       GeoLocation: new FormControl('', [Validators.required]),
       OpenTime: new FormControl('09:00', [Validators.required]),
       CloseTime: new FormControl('10:00', [Validators.required]),
+      StoreImage: '',
     });
   }
   ngOnInit(): void {
@@ -54,6 +60,17 @@ export class AppComponent implements OnInit {
       );
     });
   }
+  onFileSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.fileToUpload = input.files[0];
+      this.imageFileName = input.files[0].name;
+    } else {
+      this.fileToUpload = null;
+      this.imageFileName = '';
+    }
+  }
+
   OnSubmit() {
     if (this.StoreInfoFormGroup.valid) {
       const formStoredStoreValue = this.StoreInfoFormGroup.value;
@@ -68,22 +85,22 @@ export class AppComponent implements OnInit {
         GeoLocation: formStoredStoreValue.GeoLocation,
         OpenTime: formatedStartTime,
         CloseTime: formatedEndTime,
+        StoreImage: this.imageFileName,
       };
       console.log(payload);
+
       this.StrService.CreateStoreInfo(payload).subscribe(
         (response) => {
           console.log(response);
-          this.getStoreInfo();
-          console.log('store information added successfully', response);
           alert('Store information added successfully');
           this.StoreInfoFormGroup.reset();
         },
         (errors) => {
-          console.error('Error saving date:', errors);
+          console.error('Error saving  Store data:', errors);
         }
       );
     } else {
-      console.error('Please Fill up the Form...');
+      console.error('Please Fill the Survey  Form...');
     }
   }
   title = 'AroundU';

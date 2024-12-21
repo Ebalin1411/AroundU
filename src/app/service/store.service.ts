@@ -15,6 +15,7 @@ export class StoreService {
 
   CreateStoreInfo(storeInfo: Store): Observable<Store> {
     storeInfo.Id = '00000000-0000-0000-0000-000000000000';
+    console.log('inside Create store info');
     return this.httpClient.post<Store>(this.baseUrl, storeInfo, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
