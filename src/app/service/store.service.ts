@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '../models/storemodel';
+import { CategoryNames, Store } from '../models/storemodel';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 
@@ -18,5 +18,9 @@ export class StoreService {
     storeInfo.Id = '00000000-0000-0000-0000-000000000000';
     console.log('inside Create store info', storeInfo);
     return this.httpClient.post<Store>(`${this.baseUrl}`, storeInfo);
+  }
+
+  getCategoriesName(): Observable<CategoryNames[]> {
+    return this.httpClient.get<CategoryNames[]>(`${this.baseUrl}/Category`);
   }
 }
