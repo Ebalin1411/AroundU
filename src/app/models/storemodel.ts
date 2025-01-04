@@ -19,3 +19,8 @@ export interface Store {
   CloseTime: string;
   StoreImage: any;
 }
+
+export interface CategoryNames {
+  CategoryName: string;
+  SubCategoryName: string;
+}

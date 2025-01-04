@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StoreService } from './service/store.service';
-import { Store } from './models/storemodel';
+import { CategoryNames, Store } from './models/storemodel';
 import {
   FormBuilder,
   FormControl,
@@ -22,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  CategoriesNameArr: CategoryNames[] = [];
   StoresInfoArr: Store[] = [];
   CategoryOptions: string[] = [];
   SubCategoryOptions: string[] = [];
@@ -63,61 +64,61 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.getStoreInfo();
+    this.getCategoriesName();
     this.loadDropdownOptions();
   }
   loadDropdownOptions() {
     // Simulating an async data load, like from a service or API
     setTimeout(() => {
-      this.CategoryOptions = [
-        'Beauty',
-        'Food',
-        'Gardening',
-        'Health Care',
-        'Furniture',
-        'Jewellery',
-        'Fitness',
-        'Art',
-        'Services',
-        'Pharmacy',
-      ];
-      this.AreaOptions = ['Velachery', 'Guindy'];
-      this.SubCategoryOptions = [
-        'Gallery',
-        'Learning Center',
-        'beauty parlour',
-        'Salon',
-        'Pet',
-        'Hospital',
-        'clinic',
-        'Ayurveda',
-        'Homeopathy',
-        'Fruits and Vegetables',
-        'Fast Food',
-        'Restaurant',
-        'Cafe',
-        'South Indian',
-        'North Indian',
-        'Multicuisine',
-        'Home Made',
-        'Yoga',
-        'Gym',
-        'Open-Gym',
-        'Sale',
-        'Rental',
-        'Gold',
-        'Artifical',
-        'Rent',
-        'Rental Car',
-        'Electrical',
-        'Automobile mechanic',
-        'AC',
-        'Plumbing',
-        'Cleaning',
-        'Construction',
-        'Gardening',
-        'Plants shop',
-      ];
+      // this.CategoryOptions = [
+      //   'Beauty',
+      //   'Food',
+      //   'Gardening',
+      //   'Health Care',
+      //   'Furniture',
+      //   'Jewellery',
+      //   'Fitness',
+      //   'Art',
+      //   'Services',
+      //   'Pharmacy',
+      // ];
+      this.AreaOptions = ['Velachery'];
+      // this.SubCategoryOptions = [
+      //   'Gallery',
+      //   'Learning Center',
+      //   'beauty parlour',
+      //   'Salon',
+      //   'Pet',
+      //   'Hospital',
+      //   'clinic',
+      //   'Ayurveda',
+      //   'Homeopathy',
+      //   'Fruits and Vegetables',
+      //   'Fast Food',
+      //   'Restaurant',
+      //   'Cafe',
+      //   'South Indian',
+      //   'North Indian',
+      //   'Multicuisine',
+      //   'Home Made',
+      //   'Yoga',
+      //   'Gym',
+      //   'Open-Gym',
+      //   'Sale',
+      //   'Rental',
+      //   'Gold',
+      //   'Artifical',
+      //   'Rent',
+      //   'Rental Car',
+      //   'Electrical',
+      //   'Automobile mechanic',
+      //   'AC',
+      //   'Plumbing',
+      //   'Cleaning',
+      //   'Construction',
+      //   'Gardening',
+      //   'Plants shop',
+      // ];
     }, 1000); // Simulating a delay of 1 second
   }
 
@@ -138,6 +139,19 @@ export class AppComponent implements OnInit {
   getStoreInfo() {
     this.StrService.GetStores().subscribe((response) => {
       this.StoresInfoArr = response;
+    });
+  }
+  getCategoriesName() {
+    this.StrService.getCategoriesName().subscribe((resp) => {
+      this.CategoriesNameArr = resp;
+      this.CategoryOptions = Array.from(
+        new Set(resp.map((item) => item.CategoryName))
+      );
+      this.SubCategoryOptions = Array.from(
+        new Set(resp.map((item) => item.SubCategoryName))
+      );
+      console.log(this.CategoryOptions);
+      console.log(this.SubCategoryOptions);
     });
   }
   getStoreLocation() {
