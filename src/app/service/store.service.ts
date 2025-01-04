@@ -1,25 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '../models/storemodel';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
   constructor(private httpClient: HttpClient) {}
-  baseUrl = 'http://localhost:5013/api/Store';
+  baseUrl = environment.apiBaseUrl;
   GetStores(): Observable<Store[]> {
-    return this.httpClient.get<Store[]>(this.baseUrl);
+    return this.httpClient.get<Store[]>(`${this.baseUrl}`);
   }
 
   CreateStoreInfo(storeInfo: Store): Observable<Store> {
     storeInfo.Id = '00000000-0000-0000-0000-000000000000';
-    console.log('inside Create store info');
-    return this.httpClient.post<Store>(this.baseUrl, storeInfo, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    });
+    console.log('inside Create store info', storeInfo);
+    return this.httpClient.post<Store>(`${this.baseUrl}`, storeInfo);
   }
 }

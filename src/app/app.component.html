@@ -8,25 +8,25 @@
       class="md:p-24 p-4 md:py-8 flex text-sm md:text-base flex-wrap flex-col mt-12 md:mt-8 gap-4 md:gap-8 border-2 bg-slate-200 border-gray-300 rounded-lg"
     >
       <div class="flex items-center justify-center">
-        <h1 class="text-xl md:text-4xl font-serif">ADD STORE INFORMATION</h1>
+        <h1 class="text-xl md:text-4xl font-serif">ADD SURVEY DATA</h1>
       </div>
       <div class="flex flex-col mt-2 gap-2 md:gap-8">
         <div>
-          <label>ShopName:</label>
+          <label>Name:</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
             <input
               class="bg-transparent w-full"
               type="text"
               name="name"
-              formControlName="StoreName"
+              formControlName="Name"
             />
           </div>
 
-          @if(StoreInfoFormGroup.controls['StoreName'].touched &&
-          StoreInfoFormGroup.controls['StoreName'].errors?.['required']){
-          <span class="text-sm text-red-500">Store Name is Required</span>
-          } @if(StoreInfoFormGroup.controls['StoreName'].touched == false &&
-          StoreInfoFormGroup.controls['StoreName'].errors?.['required']){
+          @if(StoreInfoFormGroup.controls['Name'].touched &&
+          StoreInfoFormGroup.controls['Name'].errors?.['required']){
+          <span class="text-sm text-red-500"> Name is Required</span>
+          } @if(StoreInfoFormGroup.controls['Name'].touched == false &&
+          StoreInfoFormGroup.controls['Name'].errors?.['required']){
           <span class="text-sm text-red-500">*</span>
           }
         </div>
@@ -41,7 +41,60 @@
             />
           </div>
         </div>
+        <div>
+          <label>Contact Number 1:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              class="bg-transparent w-full"
+              type="text"
+              formControlName="ContactNumberOne"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Contact Number 2:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              class="bg-transparent w-full"
+              type="text"
+              formControlName="ContactNumberTwo"
+            />
+          </div>
+        </div>
 
+        <div>
+          <label for="categoryDropdown">CategoryName:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <select
+              (change)="onCategorySelect()"
+              id="categoryDropdown"
+              formControlName="CategoryName"
+              class="w-full bg-transparent"
+            >
+              <option *ngFor="let option of CategoryOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="SubCategoryDropdown">SubCategoryName:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <select
+              (change)="onSubCategorySelect()"
+              id="SubCategoryDropdown"
+              formControlName="SubCategoryName"
+              class="w-full bg-transparent"
+            >
+              <option
+                *ngFor="let option of SubCategoryOptions"
+                [value]="option"
+              >
+                {{ option }}
+              </option>
+            </select>
+          </div>
+        </div>
         <div>
           <label>Tags:</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
@@ -59,14 +112,11 @@
           <span class="text-sm text-red-500">*</span>
           }
         </div>
+
         <div>
-          <label>Address:</label>
+          <label>Adress :</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
-            <textarea
-              class="bg-transparent w-full"
-              placeholder=""
-              formControlName="Address"
-            ></textarea>
+            <input class="bg-transparent w-full" formControlName="Address" />
           </div>
           @if(StoreInfoFormGroup.controls['Address'].touched &&
           StoreInfoFormGroup.controls['Address'].errors?.['required']){
@@ -75,6 +125,74 @@
           StoreInfoFormGroup.controls['Address'].errors?.['required']){
           <span class="text-sm text-red-500">*</span>
           }
+        </div>
+        <div>
+          <label>Street Name:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              class="bg-transparent w-full"
+              type="text"
+              formControlName="StreetName"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="AreaDropdown">Area:</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <select
+              (change)="onAreaSelect()"
+              id="AreaDropdown"
+              formControlName="AreaName"
+              class="w-full bg-transparent"
+            >
+              <option *ngFor="let option of AreaOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label>City</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              [readOnly]="true"
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+              type="text"
+              formControlName="City"
+            />
+          </div>
+        </div>
+        <div>
+          <label>State</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              [readOnly]="true"
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+              type="text"
+              formControlName="State"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Pin</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              [readOnly]="true"
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+              type="text"
+              formControlName="Pin"
+            />
+          </div>
+        </div>
+        <div>
+          <label>LandMark</label>
+          <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
+            <input
+              class="bg-transparent w-full"
+              type="text"
+              formControlName="LandMark"
+            />
+          </div>
         </div>
         <div>
           <label>Fetch your Location:</label>
@@ -188,7 +306,7 @@
             />
           </div>
         </div>
-        <div>
+        <!-- <div>
           <label>Store Image to Upload:</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
             <input
@@ -198,7 +316,7 @@
               accept="image/*"
             />
           </div>
-        </div>
+        </div> -->
 
         <div>
           <button
