@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { StoreService } from './service/store.service';
-import { CategoryNames, Store } from './models/storemodel';
+import { AreaNames, CategoryNames, Store } from './models/storemodel';
 import {
   FormBuilder,
   FormControl,
@@ -26,11 +26,15 @@ export class AppComponent implements OnInit {
   StoresInfoArr: Store[] = [];
   CategoryOptions: string[] = [];
   SubCategoryOptions: string[] = [];
-  AreaOptions: string[] = [];
+  AreaInfoArr: AreaNames[] = [];
+  AreaNameOptions: string[] = [];
+  SelectedAreaDetail: any;
   StoreInfoFormGroup: FormGroup;
   CategoryName: string = '';
   SubCategoryName: string = '';
-  AreaName: string = '';
+  SelectedCity: string = '';
+  SelectedState: string = '';
+  SelectedPin: string = '';
   form: any;
   isSubmitting: any;
   fileToUpload: File | null = null;
@@ -53,9 +57,9 @@ export class AppComponent implements OnInit {
       Address: new FormControl('', [Validators.required]),
       StreetName: new FormControl(''),
       AreaName: new FormControl(),
-      City: new FormControl('Chennai'),
-      State: new FormControl('Tamil Nadu'),
-      Pin: new FormControl('600042'),
+      City: new FormControl(''),
+      State: new FormControl(''),
+      Pin: new FormControl(''),
       LandMark: new FormControl(),
       GeoLocation: new FormControl('', [Validators.required]),
       OpenTime: new FormControl('09:00', [Validators.required]),
@@ -65,61 +69,8 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getCategoriesName();
-    this.loadDropdownOptions();
-  }
-  loadDropdownOptions() {
-    // Simulating an async data load, like from a service or API
-    setTimeout(() => {
-      // this.CategoryOptions = [
-      //   'Beauty',
-      //   'Food',
-      //   'Gardening',
-      //   'Health Care',
-      //   'Furniture',
-      //   'Jewellery',
-      //   'Fitness',
-      //   'Art',
-      //   'Services',
-      //   'Pharmacy',
-      // ];
-      this.AreaOptions = ['Velachery'];
-      // this.SubCategoryOptions = [
-      //   'Gallery',
-      //   'Learning Center',
-      //   'beauty parlour',
-      //   'Salon',
-      //   'Pet',
-      //   'Hospital',
-      //   'clinic',
-      //   'Ayurveda',
-      //   'Homeopathy',
-      //   'Fruits and Vegetables',
-      //   'Fast Food',
-      //   'Restaurant',
-      //   'Cafe',
-      //   'South Indian',
-      //   'North Indian',
-      //   'Multicuisine',
-      //   'Home Made',
-      //   'Yoga',
-      //   'Gym',
-      //   'Open-Gym',
-      //   'Sale',
-      //   'Rental',
-      //   'Gold',
-      //   'Artifical',
-      //   'Rent',
-      //   'Rental Car',
-      //   'Electrical',
-      //   'Automobile mechanic',
-      //   'AC',
-      //   'Plumbing',
-      //   'Cleaning',
-      //   'Construction',
-      //   'Gardening',
-      //   'Plants shop',
-      // ];
-    }, 1000); // Simulating a delay of 1 second
+    this.getAreaDetails();
+    this.onAreaSelect();
   }
 
   onCategorySelect(): void {
@@ -132,13 +83,20 @@ export class AppComponent implements OnInit {
     console.log('Selected Value:', this.SubCategoryName);
   }
   onAreaSelect(): void {
-    this.AreaName = this.StoreInfoFormGroup.get('AreaName')?.value;
-    console.log('Selected Value:', this.AreaName);
+    const AreaName = this.StoreInfoFormGroup.get('AreaName')?.value;
+    this.SelectedAreaDetail = this.AreaInfoArr.find(
+      (area) => area.AreaName === AreaName
+    );
+    const selectedDetails = this.SelectedAreaDetail;
+    this.SelectedCity = selectedDetails?.city || '';
+    this.SelectedState = selectedDetails?.State || '';
+    this.SelectedPin = selectedDetails?.pin || '';
   }
 
   getStoreInfo() {
     this.StrService.GetStores().subscribe((response) => {
       this.StoresInfoArr = response;
+      this.AreaNameOptions;
     });
   }
   getCategoriesName() {
@@ -150,8 +108,14 @@ export class AppComponent implements OnInit {
       this.SubCategoryOptions = Array.from(
         new Set(resp.map((item) => item.SubCategoryName))
       );
-      console.log(this.CategoryOptions);
-      console.log(this.SubCategoryOptions);
+    });
+  }
+  getAreaDetails() {
+    this.StrService.getAllAreaDetails().subscribe((respData) => {
+      this.AreaInfoArr = respData;
+      this.AreaNameOptions = Array.from(
+        new Set(respData.map((item) => item.AreaName))
+      );
     });
   }
   getStoreLocation() {

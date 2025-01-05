@@ -145,45 +145,62 @@
               formControlName="AreaName"
               class="w-full bg-transparent"
             >
-              <option *ngFor="let option of AreaOptions" [value]="option">
+              <option *ngFor="let option of AreaNameOptions" [value]="option">
                 {{ option }}
               </option>
             </select>
           </div>
         </div>
-        <div>
-          <label>City</label>
+
+        <div *ngIf="this.SelectedCity">
+          <label>City :</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
-            <input
+            <p
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+            >
+              {{ this.SelectedCity }}
+            </p>
+            <!-- <input
               [readOnly]="true"
               class="block w-full text-gray-500 bg-transparent focus:outline-none"
               type="text"
               formControlName="City"
-            />
+            /> -->
           </div>
         </div>
-        <div>
+        <div *ngIf="this.SelectedState">
           <label>State</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
-            <input
+            <p
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+            >
+              {{ this.SelectedState }}
+            </p>
+            <!-- <input
               [readOnly]="true"
               class="block w-full text-gray-500 bg-transparent focus:outline-none"
               type="text"
               formControlName="State"
-            />
+            /> -->
           </div>
         </div>
-        <div>
+        <div *ngIf="this.SelectedPin">
           <label>Pin</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
-            <input
+            <p
+              class="block w-full text-gray-500 bg-transparent focus:outline-none"
+            >
+              {{ this.SelectedPin }}
+            </p>
+            <!-- <input
               [readOnly]="true"
               class="block w-full text-gray-500 bg-transparent focus:outline-none"
               type="text"
               formControlName="Pin"
-            />
+            /> -->
           </div>
         </div>
+
         <div>
           <label>LandMark</label>
           <div class="border border-gray-300 rounded-lg px-3 py-2 shadow-sm">
@@ -246,7 +263,7 @@
               class="absolute inset-y-0 end-0 top-0 flex gap-1 items-center pe-3.5 pointer-events-none"
             >
               <span
-                class="dark:text-white mr-1 text-gray-900 text-sm dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="dark:text-white text-gray-900 text-sm dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >AM</span
               >
               <svg
@@ -255,13 +272,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
+              ></svg>
             </div>
             <input
               type="time"
@@ -281,7 +292,7 @@
               class="absolute inset-y-0 end-0 top-0 flex gap-1 items-center pe-3.5 pointer-events-none"
             >
               <span
-                class="dark:text-white mr-1 text-gray-900 text-sm dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="dark:text-white text-gray-900 text-sm dark:bg-gray-500 dark:border-gray-500 dark:placeholder-gray-300 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >PM</span
               >
               <svg
@@ -290,13 +301,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
+              ></svg>
             </div>
             <input
               type="time"

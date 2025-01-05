@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategoryNames, Store } from '../models/storemodel';
+import { AreaNames, CategoryNames, Store } from '../models/storemodel';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 
@@ -22,5 +22,8 @@ export class StoreService {
 
   getCategoriesName(): Observable<CategoryNames[]> {
     return this.httpClient.get<CategoryNames[]>(`${this.baseUrl}/Category`);
+  }
+  getAllAreaDetails(): Observable<AreaNames[]> {
+    return this.httpClient.get<AreaNames[]>(`${this.baseUrl}/AreaDetails`);
   }
 }
