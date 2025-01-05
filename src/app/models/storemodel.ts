@@ -24,3 +24,10 @@ export interface CategoryNames {
   CategoryName: string;
   SubCategoryName: string;
 }
+
+export interface AreaNames {
+  AreaName: string;
+  City: string;
+  State: string;
+  pin: string;
+}
