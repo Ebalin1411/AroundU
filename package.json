@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist/around-u",
     "build": "ng build --base-href=/AroundU/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
