@@ -1,20 +1,7 @@
-# Use a specific Node.js version
-FROM node:latest
-
-# Set the working directory
+FROM node:alpine AS build
 WORKDIR /app
-
-# Copy only package.json and lock files
-COPY package*.json ./
-
-# Install dependencies
+COPY . /app
+RUN npm install -g @angular/cli
 RUN npm install
+CMD ["ng", "serve", "--host","0.0.0.0"]
 
-# Copy the rest of the application code
-COPY . .
-
-# Expose the application port
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
