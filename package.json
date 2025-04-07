@@ -1,10 +1,13 @@
 {
   "name": "around-u",
   "version": "0.0.0",
+  "homepage": "https://Ebalin1411.github.io/AroundU",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
