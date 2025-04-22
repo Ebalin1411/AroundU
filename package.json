@@ -5,8 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist/around-u",
+    "predeploy": "ng run build",
+    "deploy": "gh-pages -d build",
     "build": "ng build --base-href=/AroundU/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
